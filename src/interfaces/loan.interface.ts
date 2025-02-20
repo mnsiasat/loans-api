@@ -6,11 +6,11 @@ export enum Status {
   REJECTED = 'rejected',
 }
 
-export interface Loan {
+export interface LoanAttributes {
   id?: string
   applicantName: string
-  status: Status
+  status?: Status
   requestedAmount: number
-  createdAt: string | undefined
-  updatedAt: string | undefined
+  createdAt?: string | undefined
+  updatedAt?: string | undefined
 }

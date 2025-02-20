@@ -3,16 +3,22 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { SequelizeModule } from '@nestjs/sequelize'
 import { ConfigModule } from '@nestjs/config'
-import { LoanModule } from './loan/loan.module';
+import { LoansModule } from './loans/loans.module'
+import { Loan } from './sequelize/models/loan.model'
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     SequelizeModule.forRoot({
-      uri: process.env.DATABASE_URL,
-      models: [],
+      dialect: 'postgres',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT || '5432'),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      models: [Loan],
     }),
-    LoanModule,
+    LoansModule,
   ],
   controllers: [AppController],
   providers: [AppService],
